@@ -87,3 +87,47 @@ It's recommended to use uv to install and manage FastMCP. Alternatively, you can
 * **Sampling**: Sampling allows servers to request LLM completions through the client, enabling an agentic workflow. This approach puts the client in complete control of user permissions and security measures
 *  **Roots**: Roots allow clients to specify which directories servers should focus on, communicating intended scope through a coordination mechanism.
 *  **Elicitation**: Elicitation enables servers to request specific information from users during interactions, providing a structured way for servers to gather information on demand.	
+
+
+#### The FastMCP Client
+* Programmatic client for interacting with MCP servers through a well-typed, Pythonic interface.
+* fastmcp.Client class provides a programmatic interface for interacting with any Model Context Protocol (MCP) server, handling protocol details and connection management automatically.
+* It helps in various scenarios, including:
+ - Testing MCP servers during development 
+ - Building deterministic applications that need reliable MCP interactions 
+ - Creating the foundation for agentic or LLM-based clients with structured, type-safe operations
+* All client operations require using the async with context manager for proper connection lifecycle management.
+
+
+### CallToolResult Object Overview
+
+When a tool is invoked using the MCP client (e.g., client.call_tool()), it returns a CallToolResult object — a structured response containing both the tool’s output and related metadata.
+
+*Attributes*
+
+| Attribute | Description                                                                                                                                                                                            | 
+| :--- |:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+| data | The final, unwrapped result of the tool's execution, in its most accessible format.                                                                                                                    |
+| content | A list of MCP-standard content blocks (e.g., TextContent, ImageContent, AudioContent, etc.) returned by the server.                                                                                    | 
+| structured_content | Standard JSON-serializable output (dict or list) provided by MCP servers that support structured outputs. Best for most practical use cases.                                                           | 
+| is_error | Boolean flag indicating whether the tool execution failed (True = error).                                                                                                                                                                 | 
+
+#### Usage Tips
+
+* Use structured_content when you need to access data fields directly in your code.
+
+* Use content[0].text when you want a readable or printable output.
+```
+result = client.call_tool("summarize_data", {"file_path": "data.csv"})
+
+# Structured content (for data access)
+print(result.structured_content)
+
+# Readable output
+print(result.content[0].text)
+```
+
+## Example: AI Data Assistant using FastMCP
+An AI-powered Data Assistant built using the FastMCP framework, capable of analyzing CSV datasets through standardized Model Context Protocol (MCP) tools.
+
+[Check Github repo](https://github.com/jazz-min/mcp-data-assistant)
