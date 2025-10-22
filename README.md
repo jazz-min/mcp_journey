@@ -1,4 +1,4 @@
-# mcp_journey
+# MCP Journey
 Notes, examples, and experiments from my MCP learning journey
 
 ## MCP at a High Level
@@ -48,9 +48,8 @@ Handles connection setup, authentication, and secure communication between MCP p
 
 * **STDIO Transport**: Default transport using standard input/output streams.
 
-* **HTTP Stream Transport**: Uses HTTP POST for client-to-server messages and optional Server-Sent Events (SSE) for streaming updates.
+* **HTTP Stream Transport**: Uses HTTP POST for client-to-server messages with optional Server-Sent Events (SSE) for streaming updates.
 
-* **SSE Transport (Deprecated)**: Older Server-Sent Events–based transport, now replaced by HTTP Stream Transport
 
 
 ## Fast MCP
@@ -71,7 +70,7 @@ It's recommended to use uv to install and manage FastMCP. Alternatively, you can
 ##### Run the Server
 ```python hello_server.py```
 
-### Call Your Server
+### Create a FastMCP Client
 [mcp-hello/hello_client.py](mcp-hello/hello_client.py) : A Simple MCP Client that connects to the server and requests a greeting.
 ##### Run the Client
 ```python hello_client.py```
@@ -93,9 +92,9 @@ It's recommended to use uv to install and manage FastMCP. Alternatively, you can
 * Programmatic client for interacting with MCP servers through a well-typed, Pythonic interface.
 * fastmcp.Client class provides a programmatic interface for interacting with any Model Context Protocol (MCP) server, handling protocol details and connection management automatically.
 * It helps in various scenarios, including:
- - Testing MCP servers during development 
- - Building deterministic applications that need reliable MCP interactions 
- - Creating the foundation for agentic or LLM-based clients with structured, type-safe operations
+  * Testing MCP servers during development
+  * Building deterministic applications that need reliable MCP interactions 
+  * Creating the foundation for agentic or LLM-based clients with structured, type-safe operations
 * All client operations require using the async with context manager for proper connection lifecycle management.
 
 
